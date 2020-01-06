@@ -1,5 +1,8 @@
 import React from "react";
 import Login from "./login/Login";
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import {
   BrowserRouter as Router,
@@ -11,16 +14,34 @@ import {
 } from "react-router-dom";
 
 
+
 export default function App() {
+  const [value, setValue] = React.useState(2);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   return (
     <Router>
-      <div>
-        <ul>
+
+        <Paper square>
+          <Tabs
+            value={value}
+            indicatorColor="primary"
+            textColor="primary"
+            onChange={handleChange}
+            aria-label="disabled tabs example"
+          >
+            <Tab label="home" href="/"/>
+            <Tab label="About" disabled  href="/about"/>
+            <Tab label="login" href="/login"></Tab>
+          </Tabs>
+        
+          <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/about"/>
           </li>
           <li>
             <Link to="/topics">Topics</Link>
@@ -30,22 +51,22 @@ export default function App() {
           </li>
         </ul>
 
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/topics">
-            <Topics />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/topics">
+              <Topics />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
 
-        </Switch>
-      </div>
+          </Switch>
+      </Paper>
     </Router>
   );
 }
